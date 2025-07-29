@@ -2,7 +2,7 @@ package threads;
 
 public class Th03Estados1 {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		//creamos un hilo
 		Thread th1 = new Thread();
 		System.out.println(th1.getState());//que nos muestre el estado --> en este caso esta en new solo creado
@@ -12,7 +12,7 @@ public class Th03Estados1 {
 		System.out.println(th1.getState()); //runnable
 		
 		//ponemos a DORMIR EL HILO ACTUAL(el main) 200 mili segundos para que podamos ver como termina y aparece el ultimo estado
-		Thread.sleep(200);
+		ThreadsUtil.sleep(100);
 		
 		
 		//estado termiando 
