@@ -10,7 +10,9 @@ public class Ventana extends JFrame {
 	public Ventana () {
 		this.setBounds(20, 20, 800, 600);
 		this.setVisible(true);
+	
 		
+		//esto es un evento 
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -22,6 +24,15 @@ public class Ventana extends JFrame {
 	
 	public static void main(String[] args) {
 		 new Ventana();
+		 int cont = 0;
+		 
+		 while(true) {
+			 
+			 //demora
+			 for (int i = 0; i < 1000_000; i++) ;
+			 
+			 System.out.println(cont++);
+		 }
 	}
 
 }
