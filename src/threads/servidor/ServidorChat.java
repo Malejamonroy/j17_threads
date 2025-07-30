@@ -66,11 +66,12 @@ public class ServidorChat {
 				user = in.readLine();//para recibir el usuario 
 				user = user.replaceAll(" ", "_"); //si se identifiaca con el nombre completo que le ponga los _
 				
+				
 				while (sala.containsKey(user) || user.length() == 0) {
 					out.println(" Ese noo!! escriba bien");
 					out.println(" Identificate bien ");
 					user = in.readLine();//para recibir el usuario 
-	
+					user = user.replaceAll(" ", "_"); //para que se ponga la barra baja en el nombre
 					
 				}
 				
@@ -83,14 +84,15 @@ public class ServidorChat {
 				difusion("SRV: " + user + " Bienvendio a la Mejor Clase "); //mensaje que el el usuario 
 				
 				String linea;
-				while ((linea = in.readLine()) != null) {
+				boolean sesion = true;
+				while (sesion &&(linea = in.readLine()) != null) {
 					
 					if(linea.length() > 0 && linea.charAt(0) == '@') { //controlar que no mande nada vacio y que tenga un @ si lo de adelante no esta vacio //separa el numbre de usuario y el reto que es el mensaje //mensaje privado
 						if(linea.contains(" ")) {
 							String usrDestino = linea.substring(1,linea.indexOf(" ")); //
 							String mensaje = linea.substring(linea.indexOf(" ")+ 1); 
 							if(sala.containsKey(usrDestino)){//si existe el usuarioo
-								sala.get(usrDestino).out.print("PRIVADO DE " + user + ": " + mensaje);//mandamos el mensaje 
+								sala.get(usrDestino).out.println("PRIVADO DE " + user + ": " + mensaje);//mandamos el mensaje 
 							}else {
 								out.println(usrDestino + " no está conectado");
 							}
@@ -109,6 +111,16 @@ public class ServidorChat {
 						case "-h", "-help":
 							help();
 							break;
+						case "-q", "-quit":
+							out.println("SRV:" + " Adiosito" );
+							sala.remove(user);
+							cant--;
+							difusion("SRV: " + user +" se ha desconectado");
+							log(user + " Se ha ido");
+							sesion = false;
+							socket.close();
+							break;
+							
 						default:
 							difusion(user + ": " + linea);
 						}
